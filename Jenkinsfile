@@ -18,7 +18,17 @@ pipeline {
 
         stage('Push Docker Image') {
             steps {
-                sh 'docker push ashish5554545/aesthetic-portfolio:latest'
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub',
+                    usernameVariable: 'DOCKER_USERNAME',
+                    passwordVariable: 'DOCKER_PASSWORD'
+                )]) {
+                    sh '''
+                        echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+                        docker push ashish5554545/aesthetic-portfolio:latest
+                        docker logout
+                    '''
+                }
             }
         }
     }

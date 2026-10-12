@@ -10,6 +10,15 @@ pipeline {
             }
         }
 
+        stage('SonarQube Analysis') {
+    steps {
+        withSonarQubeEnv('SonarQube') {
+            sh '''
+                $SONAR_RUNNER_HOME/bin/sonar-scanner
+            '''
+        }
+    }
+}
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t ashish5554545/aesthetic-portfolio:latest .'

@@ -23,11 +23,11 @@ pipeline {
                     usernameVariable: 'DOCKER_USERNAME',
                     passwordVariable: 'DOCKER_PASSWORD'
                 )]) {
-                    sh '''
-                        echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-                        docker push ashish5554545/aesthetic-portfolio:latest
-                        docker logout
-                    '''
+                    
+                       sh ' echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin '
+                       sh ' docker push ashish5554545/aesthetic-portfolio:latest '
+                       sh ' docker logout '
+                    
                 }
             }
         }
